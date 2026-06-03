@@ -1,0 +1,33 @@
+#!/bin/sh
+set -x
+
+which which
+which sed
+which make
+which binutils
+which build-essential
+which diffutils
+which gcc
+which g++
+which bash
+which patch
+which gzip
+which bzip2
+which perl
+which tar
+which cpio
+which unzip
+which rsync
+which file
+which bc
+which findutils
+which awk
+which wget
+which bazaar
+which curl
+which cvs
+which git
+which mercurial
+which scp
+which sftp
+which subversion
