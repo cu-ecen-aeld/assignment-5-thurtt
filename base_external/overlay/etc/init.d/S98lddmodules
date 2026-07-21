@@ -1,0 +1,45 @@
+#!/bin/sh
+
+set -x
+
+AESD_SOCKET_PATH=${AESD_SOCKET_PATH:-/usr/bin}
+
+HELLO_DRIVER=hello
+SCULL_DRIVER=scull
+FAULTY_DRIVER=faulty
+
+case "$1" in
+    start)
+        cd /lib/modules/$(uname -r)
+        echo "Loading the $HELLO_DRIVER driver..."
+        ./module_load $HELLO_DRIVER
+
+        echo "Loading the $FAULTY_DRIVER driver..."
+        ./module_load $FAULTY_DRIVER
+
+        echo "Loading the $SCULL_DRIVER driver..."
+        ./scull_load
+    ;;
+    stop)
+        cd /lib/modules/$(uname -r)
+        echo "Unloading the $HELLO_DRIVER driver..."
+        ./module_unload $HELLO_DRIVER
+
+        echo "Loading the $FAULTY_DRIVER driver..."
+        ./module_load $FAULTY_DRIVER
+
+        echo "Unloading the $SCULL_DRIVER driver..."
+        ./scull_unload
+    ;;
+    restart)
+    $0 stop
+
+    $0 start
+    ;;
+    *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit $?
