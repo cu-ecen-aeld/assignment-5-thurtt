@@ -7,6 +7,7 @@ AESD_SOCKET_PATH=${AESD_SOCKET_PATH:-/usr/bin}
 HELLO_DRIVER=hello
 SCULL_DRIVER=scull
 FAULTY_DRIVER=faulty
+AESDCHAR_DRIVER=aesdchar
 
 case "$1" in
     start)
@@ -19,6 +20,9 @@ case "$1" in
 
         echo "Loading the $SCULL_DRIVER driver..."
         ./scull_load
+
+        echo "Loading the $AESDCHAR_DRIVER driver..."
+        ./aesdchar_load
     ;;
     stop)
         cd /lib/modules/$(uname -r)
@@ -30,6 +34,9 @@ case "$1" in
 
         echo "Unloading the $SCULL_DRIVER driver..."
         ./scull_unload
+
+        echo "Unloading the $AESDCHAR_DRIVER driver..."
+        ./aesdchar_unload
     ;;
     restart)
     $0 stop
